@@ -23,7 +23,10 @@ class SolutionMergeSortedLists {
     )
 
     fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
-        if (list1 == null) if (list2 == null) /*both null*/ return null else /*only 1*/ return list2 else if (list2 == null) /*only 2*/ return list1
+        println("mergeTwoLists(list1 = $list1, list2 = $list2)")
+        if (list1 == null)
+            return list2
+        else if (list2 == null) /*only 2*/ return list1
         var final: ListNode? = null
         var i = list1
         var j = list2
@@ -35,32 +38,32 @@ class SolutionMergeSortedLists {
                     if (final == null)
                         if (iIsLess) {
                             final = i
-                            final!!.next = j
+                            final.next = j
                         } else {
                             final = j
-                            final!!.next = i
-                        } else {
-                        if (iIsLess) {
-                            final!!.next = i
-                            final!!.next!!.next = j
-                        } else {
-                            final!!.next = j
-                            final!!.next!!.next = i
+                            final.next = i
                         }
-                        final = final!!.next!!.next
+                    else {
+                        if (iIsLess) {
+                            final.next = i
+                            final.next!!.next = j
+                        } else {
+                            final.next = j
+                            final.next!!.next = i
+                        }
+                        final = final.next!!.next
                     }
                 } else {
                     //only j null
-                    final!!.next = i
-                    final = final!!.next
+                    if(final == null) final = i
+                    else final.next = i
+                    final = final.next
                 }
-            } else if (j != null) {
+            } else { /*j cannot be null because then they would both be null, and the loop wouldn't have ran*/
                 //only i null
-                final!!.next = j
+                if(final == null) final = j
+                else final.next = j
                 final = final!!.next
-            } else {
-                //both null
-                break
             }
             i = i?.next
             j = j?.next
