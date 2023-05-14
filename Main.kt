@@ -1,3 +1,6 @@
+import easy.SolutionMergeSortedLists
+import easy.SolutionValidParentheses
+
 fun main() {
     val list1 = SolutionMergeSortedLists.ListNode(1)
     list1.next = SolutionMergeSortedLists.ListNode(2)
