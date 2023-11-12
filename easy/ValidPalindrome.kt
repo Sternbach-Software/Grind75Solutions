@@ -17,4 +17,16 @@ class ValidPalindrome {
         }
         return true
     }
+    fun isPalindromeRecursiveHelper(s: String): Boolean {
+        val sanitized = Regex("[^a-zA-Z0-9]").replace(s.toLowerCase(), "")
+        return isPalindromeRecursive(sanitized)
+    }
+    fun isPalindromeRecursive(s: String): Boolean {
+        if(s.isEmpty()) return true
+        val chars = s.toCharArray()
+        val startChar = chars[0]
+        val endChar = chars[chars.size - 1]
+        if(startChar != endChar) return false
+        return isPalindromeRecursive(s.substring(1, s.length - 1))
+    }
 }
