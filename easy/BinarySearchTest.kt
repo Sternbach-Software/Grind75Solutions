@@ -48,7 +48,7 @@ internal class BinarySearchTest {
         assertEquals(target, array[finder.search(array, target)])
     }
     fun assertSearchNotFound(array: IntArray, target: Int) {
-        assertEquals(-1, array[finder.search(array, target)])
+        assertEquals(-1, array.getOrElse(finder.search(array, target)) { -1 })
     }
     private fun assertSearchFindsAll(array: IntArray) {
         for (num in array) assertSearchFound(array, num)
