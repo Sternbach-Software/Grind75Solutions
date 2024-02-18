@@ -1,6 +1,5 @@
 package easy
 
-import easy.LCAOfBinaryTree.TreeNode
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
