@@ -4,6 +4,9 @@ package medium
 class LRUCacheProblem {
 
     class LRUCache(capacity: Int) {
+        fun println(string: String) {
+            System.`out`.println(string)
+        }
         val _capacity: Int = capacity
         data class ListNode<T>(
             val value: T? = null,
@@ -35,7 +38,7 @@ class LRUCacheProblem {
         }
 
         fun get(key: Int): Int {
-            //println("Get $key")
+            println("Get $key")
             val node = nodes[key] ?: return -1
 
             //move node to the back
@@ -43,7 +46,7 @@ class LRUCacheProblem {
             if(node !== currentTail) {
                 val currentNext = node.next
                 val currentPrev = node.prev
-                //println("currentTail = ${currentTail?.value\ncurrentNext = ${currentNext?.value}\nnodes: ${head.getHeadString()}")
+                println("currentTail = ${currentTail?.value}\ncurrentNext = ${currentNext?.value}\nnodes: ${head.getHeadString()}")
 
                 tail.prev = node
                 node.next = tail
@@ -54,39 +57,39 @@ class LRUCacheProblem {
             }
 
             if(nodes.isNotEmpty()) {
-                //println("Got $key(${node.value}), nodes: ${head.getHeadString()}")
+                println("Got $key(${node.value}), nodes: ${head.getHeadString()}")
             }
             return node.value ?: -1
         }
 
         fun put(key: Int, value: Int) {
-            //println("Put $key,$value")
+            println("Put $key,$value")
             val newNode = ListNode(value)
 
             //remove current head if over capacity
             if(nodes.size == _capacity) {
-                //println("Too big")
+                println("Too big")
                 val previousHead = head.next
                 val newHead = previousHead?.next
                 head.next = newHead
                 newHead?.prev = head
-                nodes.remove(previousHead?.value)
-                //println("Removed ${previousHead?.value}; nodes: ${head.getHeadString()}")
+                nodes.remove(key)
+                println("Removed ${previousHead?.value}; nodes: ${head.getHeadString()}")
             }
 
             //Add node:
 
             //If no nodes
             if(head.next === tail) {
-                //println("No nodes")
+                println("No nodes")
                 newNode.prev = head
                 newNode.next = tail
                 head.next = newNode
                 tail.prev = newNode
-                //println("Nodes: ${head.getHeadString()}")
+                println("Nodes: ${head.getHeadString()}")
             }
             else { //allowed number of nodes
-                //println("Allowed number")
+                println("Allowed number")
                 // put it in back
                 val currentTail = tail.prev
                 tail.prev = newNode
@@ -94,13 +97,13 @@ class LRUCacheProblem {
 
                 currentTail?.next = newNode
                 newNode.prev = currentTail
-                //println("Nodes: ${head.getHeadString()}")
+                println("Nodes: ${head.getHeadString()}")
 
             }
 
             nodes[key] = newNode
             if(nodes.isNotEmpty()) {
-                //println("Put $key=$value, nodes: ${head.getHeadString()}")
+                println("Put $key=$value, nodes: ${head.getHeadString()}")
             }
         }
 
@@ -117,7 +120,7 @@ class LRUCacheProblem {
         fun main(args: Array<String>) {
 
             val lRUCache = LRUCache(2)
-            lRUCache.put(1, 1) // cache is {1=1}
+            lRUCache.put(1, 0) // cache is {1=0}
             lRUCache.put(2, 2) // cache is {1=1, 2=2}
             assert(1 == lRUCache.get(1)) // return 1
             println(1 == lRUCache.get(1))
