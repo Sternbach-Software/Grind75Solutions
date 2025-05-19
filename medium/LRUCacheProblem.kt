@@ -1,5 +1,7 @@
 package medium
 
+import ListNode
+
 
 class LRUCacheProblem {
 
@@ -8,30 +10,11 @@ class LRUCacheProblem {
             println(string)
         }
         val _capacity: Int = capacity
-        data class ListNode<K, V>(
-            val key: K,
-            val value: V,
-            var next: ListNode<K, V>? = null,
-            var prev: ListNode<K, V>? = null
-        ) {
-            fun getHeadString(): StringBuilder {
-                val string = StringBuilder()
-                this.forEach { string.append("$it,") }
-                return string
-            }
 
-            private fun ListNode<K,V>.forEach(action: (V?) -> Unit) {
-                var current: ListNode<K,V>? = this
-                while (current != null) {
-                    action(current.value)
-                    current = current.next
-                }
-            }
-        }
-        val head = ListNode(-1,-1)
-        val tail = ListNode(-1,-1)
+        val head = ListNode(-1 to-1)
+        val tail = ListNode(-1 to-1)
 
-        val nodes = HashMap<Int, ListNode<Int, Int>>(capacity)
+        val nodes = HashMap<Int, ListNode<Pair<Int, Int>>>(capacity)
 
         init {
             head.next = tail
@@ -44,7 +27,7 @@ class LRUCacheProblem {
             remove(node)
             add(node)
 
-            return node.value
+            return node.value.second
         }
 
         fun put(key: Int, value: Int) {
@@ -56,24 +39,24 @@ class LRUCacheProblem {
 
             if(nodes.size == _capacity) {
                 val node = head.next!!
-                nodes.remove(node.key)
+                nodes.remove(node.value.first)
                 remove(node)
             }
 
-            val node = ListNode(key,value)
+            val node = ListNode(key to value)
             nodes[key] = node
             add(node)
 
         }
 
-        fun remove(node: ListNode<Int, Int>) {
+        fun remove(node: ListNode<Pair<Int, Int>>) {
             val prevNode = node.prev
             val nextNode = node.next
             prevNode?.next = nextNode
             nextNode?.prev = prevNode
 
         }
-        fun add(node: ListNode<Int, Int>) {
+        fun add(node: ListNode<Pair<Int, Int>>) {
             val currentTail = tail.prev
             currentTail?.next = node
             node.next = tail

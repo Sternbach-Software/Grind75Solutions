@@ -1,5 +1,7 @@
 package easy
 
+import SingleLinkedListNode
+
 /**
 
  * Example:
@@ -19,16 +21,8 @@ package easy
  */
 
 class SolutionMergeSortedLists {
-    class ListNode(
-        var `val`: Int,
-        var next: ListNode? = null
-    ) {
-        override fun toString(): String {
-            return "ListNode(val = $`val`, next = $next)"
-        }
-    }
 
-    fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
+    fun mergeTwoLists(list1: SingleLinkedListNode?, list2: SingleLinkedListNode?): SingleLinkedListNode? {
         println("mergeTwoLists(list1 = $list1, list2 = $list2)")
         /*if (list1 == null)
             return list2
@@ -71,7 +65,7 @@ class SolutionMergeSortedLists {
             j = j?.next
         }
         return final*/
-        val result = ListNode(0)
+        val result = SingleLinkedListNode(0)
         var current = result
 
         var node1 = list1

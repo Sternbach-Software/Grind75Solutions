@@ -1,8 +1,10 @@
 package easy
 
+import SingleLinkedListNode
+
 class ReverseSinglyLinkedList {
-    fun reverseList(head: ListNode?): ListNode? {
-        val stack = ArrayDeque<ListNode>()
+    fun reverseList(head: SingleLinkedListNode?): SingleLinkedListNode? {
+        val stack = ArrayDeque<SingleLinkedListNode>()
         var next = head
         while(next != null) {
             stack.addFirst(next)
