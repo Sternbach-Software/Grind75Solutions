@@ -95,13 +95,44 @@ class Calculator {
         return node?.value?.toInt() ?: 0
     }
 
+    fun calculateOnePass(s: String?): Int {
+        if (s.isNullOrEmpty()) return 0
+        var lastNumber = 0
+        var currentNumber = 0
+        var result = 0
+        var operation = '+'
+        for ((index, char) in s.withIndex()) {
+            if (char.isDigit()) {
+                currentNumber = (currentNumber * 10) + (char.code - '0'.code)
+            }
+            if (!char.isDigit() && !char.isWhitespace() || index == s.lastIndex) {
+                when (operation) {
+                    '+', '-' -> {
+                        result += lastNumber
+                        lastNumber = if (operation == '+') currentNumber else -currentNumber
+                    }
+                    '*' -> {
+                        lastNumber *= currentNumber
+                    }
+                    '/' -> {
+                        lastNumber /= currentNumber
+                    }
+                }
+                operation = char
+                currentNumber = 0
+            }
+        }
+        result += lastNumber
+        return result
+    }
+
 
     companion object {
         @JvmStatic
         fun main(array: Array<String>) {
-            println(Calculator().calculate("1+2*3") == 7)
-            println(Calculator().calculate(" 3/2 ") == 1)
-            println(Calculator().calculate(" 3/2*2 ") == 0)
+            println(Calculator().calculateOnePass("3+2*2") == 7)
+            println(Calculator().calculateOnePass(" 3/2 ") == 1)
+            println(Calculator().calculateOnePass(" 3/2*2 ") == 2)
 
         }
     }
